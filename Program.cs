@@ -236,5 +236,473 @@ namespace Programma_distilleria_distillati
             }
             salvataggio();
         }
+        //menù per il riempimento delle botti
+        static void MenùRiempimentoBotti()
+        {
+            {
+                Console.WriteLine("\nMenùRiempimentoBotti");
+                //selezione dei menù delle botti in base al distillato con controlli
+                Console.WriteLine("\nScrivi quali botti vuoi riempire in base al distillato\nScrivi 1 per le botti di vino\nScrivi 2 per le botti di grappa" +
+                "\nScrivi 3 per le botti di whisky\nScrivi 4 per le botti di gin\nScrivi 5 per le botti di brandy\nScrivi 6 per le botti di cognac" +
+                "\nScrivi 7 per le botti di vodka\nScrivi 8 per le botti di rum\nScrivi * per tornare al menù principale");
+                NumeroMenùBotti = Console.ReadLine(); //assunzione valore da tastiera
+                while (NumeroMenùBotti != "1" && NumeroMenùBotti != "2" && NumeroMenùBotti != "3" && NumeroMenùBotti != "4" && NumeroMenùBotti != "5" && NumeroMenùBotti != "6" && NumeroMenùBotti != "7" && NumeroMenùBotti != "8" && NumeroMenùBotti != "*")
+                {
+                    Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                    NumeroMenùBotti = Console.ReadLine();
+                }
+                switch (NumeroMenùBotti)
+                {
+                    case "1": MenùBottiVino(); break;
+                    case "2": MenùBottiGrappa(); break;
+                    case "3": MenùBottiWhisky(); break;
+                    case "4": MenùBottiGin(); break;
+                    case "5": MenùBottiBrandy(); break;
+                    case "6": MenùBottiCognac(); break;
+                    case "7": MenùBottiVodka(); break;
+                    case "8": MenùBottiRum(); break;
+                    case "*": menù(); break;
+                }
+                salvataggio2();
+            }
+        }
+
+        static void MenùBottiVino()
+        {
+            //selezione grandezza botti da riempire con controlli
+            Console.WriteLine("\nQuali botti di vino vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiVinoPiccole(); break;
+                case "2": BottiVinoMedie(); break;
+                case "3": BottiVinoGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiVinoPiccole()
+        {
+            //chiedo all'utente quanti botti vuole riempire e controllo il valore inserito
+            Console.WriteLine("\nQuante botti piccole di vino vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[0][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            //rinnovo il valore dei dati
+            bottiPiene[0][0] = bottiPiene[0][0] + RiempiBotti;
+            botti[0][0] = botti[0][0] - RiempiBotti;
+        }
+        static void BottiVinoMedie()
+        {
+            //chiedo all'utente quanti botti vuole riempire e controllo il valore inserito
+            Console.WriteLine("\nQuante botti medie di vino vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[0][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[0][1] = bottiPiene[0][1] + RiempiBotti;
+            botti[0][1] = botti[0][1] - RiempiBotti;
+        }
+        static void BottiVinoGrandi()
+        {
+            //chiedo all'utente quanti botti vuole riempire e controllo il valore inserito
+            Console.WriteLine("\nQuante botti grandi di vino vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[0][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[0][2] = bottiPiene[0][2] + RiempiBotti;
+            botti[0][2] = botti[0][2] - RiempiBotti;
+        }
+
+        static void MenùBottiGrappa()
+        {
+            Console.WriteLine("\nQuali botti di grappa vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiGrappaPiccole(); break;
+                case "2": BottiGrappaMedie(); break;
+                case "3": BottiGrappaGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        //ripeto il procedimento per il riempimento delle botti di vino anche per gli altri distillati e per le rispettive grandezze delle botti 
+        static void BottiGrappaPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di grappa vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[1][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[1][0] = bottiPiene[1][0] + RiempiBotti;
+            botti[1][0] = botti[1][0] - RiempiBotti;
+        }
+        static void BottiGrappaMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di grappa vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[1][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[1][1] = bottiPiene[1][1] + RiempiBotti;
+            botti[1][1] = botti[1][1] - RiempiBotti;
+        }
+        static void BottiGrappaGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di grappa vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[1][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[1][2] = bottiPiene[1][2] + RiempiBotti;
+            botti[1][2] = botti[1][2] - RiempiBotti;
+        }
+
+        static void MenùBottiWhisky()
+        {
+            Console.WriteLine("\nQuali botti di whisky vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiWhiskyPiccole(); break;
+                case "2": BottiWhiskyMedie(); break;
+                case "3": BottiWhiskyGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiWhiskyPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di whisky vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[2][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[2][0] = bottiPiene[2][0] + RiempiBotti;
+            botti[2][0] = botti[2][0] - RiempiBotti;
+        }
+        static void BottiWhiskyMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di whisky vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[2][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[2][1] = bottiPiene[2][1] + RiempiBotti;
+            botti[2][1] = botti[2][1] - RiempiBotti;
+        }
+        static void BottiWhiskyGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di whisky vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[2][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[2][2] = bottiPiene[2][2] + RiempiBotti;
+            botti[2][2] = botti[2][2] - RiempiBotti;
+        }
+
+        static void MenùBottiGin()
+        {
+            Console.WriteLine("\nQuali botti di gin vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiGinPiccole(); break;
+                case "2": BottiGinMedie(); break;
+                case "3": BottiGinGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiGinPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di gin vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[3][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[3][0] = bottiPiene[3][0] + RiempiBotti;
+            botti[3][0] = botti[3][0] - RiempiBotti;
+        }
+        static void BottiGinMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di gin vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[3][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[3][1] = bottiPiene[3][1] + RiempiBotti;
+            botti[3][1] = botti[3][1] - RiempiBotti;
+        }
+        static void BottiGinGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di gin vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[3][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[3][2] = bottiPiene[3][2] + RiempiBotti;
+            botti[3][2] = botti[3][2] - RiempiBotti;
+        }
+
+        static void MenùBottiBrandy()
+        {
+            Console.WriteLine("\nQuali botti di brandy vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiBrandyPiccole(); break;
+                case "2": BottiBrandyMedie(); break;
+                case "3": BottiBrandyGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiBrandyPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di brandy vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[4][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[4][0] = bottiPiene[4][0] + RiempiBotti;
+            botti[4][0] = botti[4][0] - RiempiBotti;
+        }
+        static void BottiBrandyMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di brandy vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[4][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[4][1] = bottiPiene[4][1] + RiempiBotti;
+            botti[4][1] = botti[4][1] - RiempiBotti;
+        }
+        static void BottiBrandyGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di brandy vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[4][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[4][2] = bottiPiene[4][2] + RiempiBotti;
+            botti[4][2] = botti[4][2] - RiempiBotti;
+        }
+
+        static void MenùBottiCognac()
+        {
+            Console.WriteLine("\nQuali botti di cognac vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiCognacPiccole(); break;
+                case "2": BottiCognacMedie(); break;
+                case "3": BottiCognacGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiCognacPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di cognac vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[5][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[5][0] = bottiPiene[5][0] + RiempiBotti;
+            botti[5][0] = botti[5][0] - RiempiBotti;
+        }
+        static void BottiCognacMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di cognac vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[5][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[5][1] = bottiPiene[5][1] + RiempiBotti;
+            botti[5][1] = botti[5][1] - RiempiBotti;
+        }
+        static void BottiCognacGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di cognac vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[5][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[5][2] = bottiPiene[5][2] + RiempiBotti;
+            botti[5][2] = botti[5][2] - RiempiBotti;
+        }
+
+        static void MenùBottiVodka()
+        {
+            Console.WriteLine("\nQuali botti di vodka vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiVodkaPiccole(); break;
+                case "2": BottiVodkaMedie(); break;
+                case "3": BottiVodkaGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiVodkaPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di vodka vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[6][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[6][0] = bottiPiene[6][0] + RiempiBotti;
+            botti[6][0] = botti[6][0] - RiempiBotti;
+        }
+        static void BottiVodkaMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di vodka vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[6][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[6][1] = bottiPiene[6][1] + RiempiBotti;
+            botti[6][1] = botti[6][1] - RiempiBotti;
+        }
+        static void BottiVodkaGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di vodka vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[6][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[6][2] = bottiPiene[6][2] + RiempiBotti;
+            botti[6][2] = botti[6][2] - RiempiBotti;
+        }
+
+        static void MenùBottiRum()
+        {
+            Console.WriteLine("\nQuali botti di Rum vuoi riempire?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBotti");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": BottiRumPiccole(); break;
+                case "2": BottiRumMedie(); break;
+                case "3": BottiRumGrandi(); break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+        static void BottiRumPiccole()
+        {
+            Console.WriteLine("\nQuante botti piccole di rum vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[7][0])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[7][0] = bottiPiene[7][0] + RiempiBotti;
+            botti[7][0] = botti[7][0] - RiempiBotti;
+        }
+        static void BottiRumMedie()
+        {
+            Console.WriteLine("\nQuante botti medie di rum vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[7][1])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[7][1] = bottiPiene[7][1] + RiempiBotti;
+            botti[7][1] = botti[7][1] - RiempiBotti;
+        }
+        static void BottiRumGrandi()
+        {
+            Console.WriteLine("\nQuante botti grandi di rum vuoi riempire? Inserisci un numero intero\nRisposta: ");
+            RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            while (RiempiBotti < 0 && RiempiBotti > botti[7][2])
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                RiempiBotti = Convert.ToInt32(Console.ReadLine());
+            }
+            bottiPiene[7][2] = bottiPiene[7][2] + RiempiBotti;
+            botti[7][2] = botti[7][2] - RiempiBotti;
+        }
     }
 }
