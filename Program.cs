@@ -1597,4 +1597,261 @@ namespace Programma_distilleria_distillati
             }
         }
     }
+    //menù della compravvendita
+        static void MenùCompravvendita()
+        {
+            Console.WriteLine("\nMenùCompravvendità");
+            //selezione dei menù con inserimento da tastiera e controllo del valore
+            Console.WriteLine("\nScrivi 1 per comprare bottiglie\nScrivi 2 per vendere bottiglie\nScrivi * per tornare al menù principale");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": MenùCompraBottiglie(); break;
+                case "2": MenùVendiBottiglie(); break;
+                case "*": menù(); break;
+            }
+        }
+        //menù per comprare bottiglie
+        static void MenùCompraBottiglie()
+        {
+            //tramite assunzione da tastiera chiedo all'utente per quale distillato vuole comprare le bottiglie e controllo il valore inserito
+            Console.WriteLine("\nDi quale distillato vuoi comprare le bottiglie?\nScrivi 1 per il vino\nScrivi 2 per la grappa\nScrivi 3 per il whisky" +
+            "Scrivi 4 per il gin\nScrivi 5 per il brandy\nScrivi 6 per il cognac\nScrivi 7 per la vodka\nScrivi 8 per il rum\nScrivi * per tornare al MenùCompravvendita");
+            Risposta = Console.ReadLine();
+            while(Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "4" && Risposta != "5" && Risposta != "6" && Risposta != "7" && Risposta != "8" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            int NumeroBottiglie; //variabile per indicare la quuantità di bottiglie comprate
+            double Spesa; //variabile che indica la spesa per l'acquisto di bottiglie
+            switch (Risposta)
+            {
+                case "1":
+                    //chiedo all'utente quante bottiglie vuole comprare
+                    Console.WriteLine("\nQuante bottiglie per il vino vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro"); //ricordo all'utente quanti soldi possiede
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine()); //bottiglie comprate
+                    Spesa = NumeroBottiglie * 1.5; //calcolo della spesa
+                    Budget = Budget - Spesa; //sottrazione della spesa dal budget
+                    QuantitàBottiglie[0] = QuantitàBottiglie[0] + NumeroBottiglie; //modifica ai dati sulle bottiglie
+                    break;
+                    //ripeto il procedimento per tutti i distillati
+                case "2":
+                    Console.WriteLine("\nQuante bottiglie per la grappa vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[1] = QuantitàBottiglie[1] + NumeroBottiglie;
+                    break;
+                case "3":
+                    Console.WriteLine("\nQuante bottiglie per il whisky vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[2] = QuantitàBottiglie[2] + NumeroBottiglie;
+                    break;
+                case "4":
+                    Console.WriteLine("\nQuante bottiglie per il gin vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[3] = QuantitàBottiglie[3] + NumeroBottiglie;
+                    break;
+                case "5":
+                    Console.WriteLine("\nQuante bottiglie per il brandy vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[4] = QuantitàBottiglie[4] + NumeroBottiglie;
+                    break;
+                case "6":
+                    Console.WriteLine("\nQuante bottiglie per il cognac vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[5] = QuantitàBottiglie[5] + NumeroBottiglie;
+                    break;
+                case "7":
+                    Console.WriteLine("\nQuante bottiglie per la vodka vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[6] = QuantitàBottiglie[6] + NumeroBottiglie;
+                    break;
+                case "8":
+                    Console.WriteLine("\nQuante bottiglie per il rum vuoi comprare?\nUna bottiglia vuota da 750 ml standard costa circa 1,5 euro");
+                    Console.WriteLine("\nIl tuo budget è di: " + Budget + "euro");
+                    NumeroBottiglie = Convert.ToInt32(Console.ReadLine());
+                    Spesa = NumeroBottiglie * 1.5;
+                    Budget = Budget - Spesa;
+                    QuantitàBottiglie[7] = QuantitàBottiglie[7] + NumeroBottiglie;
+                    break;
+                case "*": menù(); break;
+            }
+        }
+        //menù per la vendita delle bottiglie
+        static void MenùVendiBottiglie()
+        {
+            //chiedo all'utente di quale distillato vuole vendere le bottiglie 
+            Console.WriteLine("\nDi quale distillato vuoi vendere le bottiglie?\nScrivi 1 per il vino\nScrivi 2 per la grappa\nScrivi 3 per il whisky" +
+            "Scrivi 4 per il gin\nScrivi 5 per il brandy\nScrivi 6 per il cognac\nScrivi 7 per la vodka\nScrivi 8 per il rum\nScrivi * per tornare al MenùCompravvendita");
+            Risposta = Console.ReadLine(); //assunzione da tastiera e controllo del valore
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "4" && Risposta != "5" && Risposta != "6" && Risposta != "7" && Risposta != "8" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            int[] PrezzoBottiglie = new int[8]; //array con i prezzi delle bottiglie
+            int VendiBottiglie; //variabile con quantità di bottiglie da vendere
+            switch (Risposta) //selezione distillati
+            {
+                case "1":
+                    //chiedo all'utente di inserire il prezzo della bottiglia singola
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di vino in euro");
+                    PrezzoBottiglie[0] = Convert.ToInt32(Console.ReadLine()); //assunzione da tastiera
+                    Console.WriteLine("\nQuante bottiglie di vino devi vendere?"); //chiedo all'utente la quantità di bottiglie da vendere
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine()); //assunzione da tastiera
+                    while (VendiBottiglie > QuantitàBottiglie[0]) //controllo che le bottiglie da vendere non superino quelle possedute 
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[0] = QuantitàBottiglie[0] - VendiBottiglie; //calcoli per modificare i dati
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[0];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro"); //dichiaro all'utente il guadagno e il budget complessivo dopo la vendita
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                    //ripeto il procedimento per tutti gli altri distillati
+                case "2":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di grappa in euro");
+                    PrezzoBottiglie[1] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di grappa devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[1])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[1] = QuantitàBottiglie[1] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[1];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "3":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di whisky in euro");
+                    PrezzoBottiglie[2] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di whisky devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[2])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[2] = QuantitàBottiglie[2] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[2];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "4":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di gin in euro");
+                    PrezzoBottiglie[3] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di gin devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[3])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[3] = QuantitàBottiglie[3] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[3];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "5":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di brandy in euro");
+                    PrezzoBottiglie[4] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di brandy devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[4])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[4] = QuantitàBottiglie[4] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[4];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "6":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di cognac in euro");
+                    PrezzoBottiglie[5] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di cognac devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[1])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[5] = QuantitàBottiglie[5] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[5];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "7":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di vodka in euro");
+                    PrezzoBottiglie[6] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di vodka devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[6])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[6] = QuantitàBottiglie[6] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[6];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "8":
+                    Console.WriteLine("\nInserisci il prezzo di una singola bottiglia di rum in euro");
+                    PrezzoBottiglie[7] = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("\nQuante bottiglie di rum devi vendere?");
+                    VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    while (VendiBottiglie > QuantitàBottiglie[7])
+                    {
+                        Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                        VendiBottiglie = Convert.ToInt32(Console.ReadLine());
+                    }
+                    QuantitàBottiglie[7] = QuantitàBottiglie[7] - VendiBottiglie;
+                    Guadagno = VendiBottiglie * PrezzoBottiglie[7];
+                    Console.WriteLine("\nHai guadagnato: " + Guadagno + " euro");
+                    Budget = Budget + Guadagno;
+                    Console.WriteLine("\nAttualmente possiedi: " + Budget + " euro");
+                    break;
+                case "*": menù(); break;
+            }
+        }
+    }
+}
+
+    }
 }
