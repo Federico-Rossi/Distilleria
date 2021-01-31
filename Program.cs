@@ -704,5 +704,897 @@ namespace Programma_distilleria_distillati
             bottiPiene[7][2] = bottiPiene[7][2] + RiempiBotti;
             botti[7][2] = botti[7][2] - RiempiBotti;
         }
+
+        static void MenùBottiglie()
+        {
+            Console.WriteLine("MenùBottiglie");
+            //ciclo per assegnare agli elementi dell'array le quantità di bottiglie vuote per ogni distillato
+            for (int i = 0; i < 8; i++)
+            {
+                Console.WriteLine($"\nQuante {nomiBottiglie[i]} possiede la distilleria?\nRisposta: ");
+                QuantitàBottiglie[i] = Convert.ToInt32(Console.ReadLine());
+                //controllo i valori inseriti dall'utente, in caso di errore l'utente li inserisce nuovamente
+                while (QuantitàBottiglie[i] < 0)
+                {
+                    Console.WriteLine($"\nReinsesci il numero di {nomiBottiglie[i]} in cantina\nRisposta: ");
+                    QuantitàBottiglie[i] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+            //selezione menù di riempimento delle bottiglie in base al distillato che devono contenere
+            Console.WriteLine("\nDi quale distillato vuoi riempire le bottiglie?\nScrivi 1 per le bottiglie di vino\nScrivi 2 per le bottiglie di grappa" +
+            "\nScrivi 3 per le bottiglie di whisky\n\nScrivi 4 per le bottiglie di gin\nScrivi 5 per le bottiglie di brandy" +
+            "Scrivi 6 per le bottiglie di cognac\nScrivi 7 per le bottiglie di vodka\nScrivi 8 per le bottiglie di rum\nScrivi * per tornare al menù principale");
+            Risposta = Console.ReadLine(); //assunzione valore da tastiera
+            //controllo il valore inserito dall'utente
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "4" && Risposta != "5" && Risposta != "6" && Risposta != "7" && Risposta != "8" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1": MenùBottiglieVino(); break;
+                case "2": MenùBottiglieGrappa(); break;
+                case "3": MenùBottiglieWhisky(); break;
+                case "4": MenùBottiglieGin(); break;
+                case "5": MenùBottiglieBrandy(); break;
+                case "6": MenùBottiglieCognac(); break;
+                case "7": MenùBottiglieVodka(); break;
+                case "8": MenùBottiglieRum(); break;
+                case "*": menù(); break;
+            }
+            salvataggio3();
+            salvataggio4();
+        }
+
+        static void MenùBottiglieVino()
+        {
+            //chiedo all'utente quali botti, in base alla grandezza, vuole usare per riempire le bottiglie
+            Console.WriteLine("\nQuali botti di vino vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            //assunzione da tastiera e controllo
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    //botti piccole
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    //chiedo all'utente quante botti vuole usare per riempire le bottiglie
+                    Console.WriteLine("\nQuante botti piccole di vino vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine()); //assunzione da tastiera
+                    BottiglieRiempite = (BottiUsate * 225000) / 750; //calcoli per la conversione dei dati
+                    botti[0][0] = botti[0][0] - BottiUsate;
+                    bottiPiene[0][0] = bottiPiene[0][0] + BottiUsate;
+                    //controllo che le bottiglie vuote siano abbastanza
+                    while (BottiglieRiempite > QuantitàBottiglie[0])
+                    {
+                        //chiedo all'utente di comprare nuove bottiglie vuote al menù per la compravvendita o di reinserire la quantità di botti da utilizzare
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        //controllo la risposta e reindirizzo l'utente al menù selezionato
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieVino();
+                        }
+                    }
+                    //dichiaro all'utente quante bottiglie ha riempito
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[0]);
+                    //modifico i dati
+                    bottigliePiene[0] = bottigliePiene[0] + BottiglieRiempite;
+                    QuantitàBottiglie[0] = QuantitàBottiglie[0] - BottiglieRiempite;
+                    break;
+                //ripeto il procedimento per tutti i distillati e per le rgrandezze delle botti usate cambiando i dati
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di vino vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[0])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieVino();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[0]);
+                    botti[0][1] = botti[0][1] - BottiUsate;
+                    bottiPiene[0][1] = bottiPiene[0][1] + BottiUsate;
+                    bottigliePiene[0] = bottigliePiene[0] + BottiglieRiempite;
+                    QuantitàBottiglie[0] = QuantitàBottiglie[0] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di vino vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[0])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieVino();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[0]);
+                    botti[0][2] = botti[0][2] - BottiUsate;
+                    bottiPiene[0][2] = bottiPiene[0][2] + BottiUsate;
+                    bottigliePiene[0] = bottigliePiene[0] + BottiglieRiempite;
+                    QuantitàBottiglie[0] = QuantitàBottiglie[0] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieGrappa()
+        {
+            Console.WriteLine("\nQuali botti di grappa vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di grappa vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[1])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieGrappa();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[1]);
+                    botti[1][0] = botti[1][0] - BottiUsate;
+                    bottiPiene[1][0] = bottiPiene[1][0] + BottiUsate;
+                    bottigliePiene[1] = bottigliePiene[1] + BottiglieRiempite;
+                    QuantitàBottiglie[1] = QuantitàBottiglie[1] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di grappa vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[1])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieGrappa();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[1]);
+                    botti[1][1] = botti[1][1] - BottiUsate;
+                    bottiPiene[1][1] = bottiPiene[1][1] + BottiUsate;
+                    bottigliePiene[1] = bottigliePiene[1] + BottiglieRiempite;
+                    QuantitàBottiglie[1] = QuantitàBottiglie[1] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di grappa vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[1])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieGrappa();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[1]);
+                    botti[1][2] = botti[1][2] - BottiUsate;
+                    bottiPiene[1][2] = bottiPiene[1][2] + BottiUsate;
+                    bottigliePiene[1] = bottigliePiene[1] + BottiglieRiempite;
+                    QuantitàBottiglie[1] = QuantitàBottiglie[1] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieWhisky()
+        {
+            Console.WriteLine("\nQuali botti di vino vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di whisky vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[2])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieWhisky();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[2]);
+                    botti[2][0] = botti[2][0] - BottiUsate;
+                    bottiPiene[2][0] = bottiPiene[2][0] + BottiUsate;
+                    bottigliePiene[2] = bottigliePiene[2] + BottiglieRiempite;
+                    QuantitàBottiglie[2] = QuantitàBottiglie[2] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di whisky vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[2])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieWhisky();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[2]);
+                    botti[2][1] = botti[2][1] - BottiUsate;
+                    bottiPiene[2][1] = bottiPiene[2][1] + BottiUsate;
+                    bottigliePiene[2] = bottigliePiene[2] + BottiglieRiempite;
+                    QuantitàBottiglie[2] = QuantitàBottiglie[2] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di whisky vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[2])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieWhisky();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[2]);
+                    botti[2][2] = botti[2][2] - BottiUsate;
+                    bottiPiene[2][2] = bottiPiene[2][2] + BottiUsate;
+                    bottigliePiene[2] = bottigliePiene[2] + BottiglieRiempite;
+                    QuantitàBottiglie[2] = QuantitàBottiglie[2] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieGin()
+        {
+            Console.WriteLine("\nQuali botti di gin vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di gin vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[3])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieGin();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[3]);
+                    botti[3][0] = botti[3][0] - BottiUsate;
+                    bottiPiene[3][0] = bottiPiene[3][0] + BottiUsate;
+                    bottigliePiene[3] = bottigliePiene[3] + BottiglieRiempite;
+                    QuantitàBottiglie[3] = QuantitàBottiglie[3] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di gin vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[3])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieGin();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[3]);
+                    botti[3][1] = botti[3][1] - BottiUsate;
+                    bottiPiene[3][1] = bottiPiene[3][1] + BottiUsate;
+                    bottigliePiene[3] = bottigliePiene[3] + BottiglieRiempite;
+                    QuantitàBottiglie[3] = QuantitàBottiglie[3] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di gin vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[3])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieGin();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[3]);
+                    botti[3][2] = botti[3][2] - BottiUsate;
+                    bottiPiene[3][2] = bottiPiene[3][2] + BottiUsate;
+                    bottigliePiene[3] = bottigliePiene[3] + BottiglieRiempite;
+                    QuantitàBottiglie[3] = QuantitàBottiglie[3] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieBrandy()
+        {
+            Console.WriteLine("\nQuali botti di brandy vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di brandy vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[4])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieBrandy();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[4]);
+                    botti[4][0] = botti[4][0] - BottiUsate;
+                    bottiPiene[4][0] = bottiPiene[4][0] + BottiUsate;
+                    bottigliePiene[4] = bottigliePiene[4] + BottiglieRiempite;
+                    QuantitàBottiglie[4] = QuantitàBottiglie[4] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di brandy vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[4])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieBrandy();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[4]);
+                    botti[4][1] = botti[4][1] - BottiUsate;
+                    bottiPiene[4][1] = bottiPiene[4][1] + BottiUsate;
+                    bottigliePiene[4] = bottigliePiene[4] + BottiglieRiempite;
+                    QuantitàBottiglie[4] = QuantitàBottiglie[4] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di brandy vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[4])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieBrandy();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[4]);
+                    botti[4][2] = botti[4][2] - BottiUsate;
+                    bottiPiene[4][2] = bottiPiene[4][2] + BottiUsate;
+                    bottigliePiene[4] = bottigliePiene[4] + BottiglieRiempite;
+                    QuantitàBottiglie[4] = QuantitàBottiglie[4] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieCognac()
+        {
+            Console.WriteLine("\nQuali botti di cognac vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di cognac vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[5])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieCognac();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[5]);
+                    botti[5][0] = botti[5][0] - BottiUsate;
+                    bottiPiene[5][0] = bottiPiene[5][0] + BottiUsate;
+                    bottigliePiene[5] = bottigliePiene[5] + BottiglieRiempite;
+                    QuantitàBottiglie[5] = QuantitàBottiglie[5] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di cognac vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[5])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieCognac();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[5]);
+                    botti[5][1] = botti[5][1] - BottiUsate;
+                    bottiPiene[5][1] = bottiPiene[5][1] + BottiUsate;
+                    bottigliePiene[5] = bottigliePiene[5] + BottiglieRiempite;
+                    QuantitàBottiglie[5] = QuantitàBottiglie[5] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di cognac vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[5])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieCognac();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[5]);
+                    botti[5][2] = botti[5][2] - BottiUsate;
+                    bottiPiene[5][2] = bottiPiene[5][2] + BottiUsate;
+                    bottigliePiene[5] = bottigliePiene[5] + BottiglieRiempite;
+                    QuantitàBottiglie[5] = QuantitàBottiglie[5] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieVodka()
+        {
+            Console.WriteLine("\nQuali botti di vodka vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di vodka vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[6])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieVodka();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[6]);
+                    botti[6][0] = botti[6][0] - BottiUsate;
+                    bottiPiene[6][0] = bottiPiene[6][0] + BottiUsate;
+                    bottigliePiene[6] = bottigliePiene[6] + BottiglieRiempite;
+                    QuantitàBottiglie[6] = QuantitàBottiglie[6] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di vodka vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[6])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieVodka();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[6]);
+                    botti[6][1] = botti[6][1] - BottiUsate;
+                    bottiPiene[6][1] = bottiPiene[6][1] + BottiUsate;
+                    bottigliePiene[6] = bottigliePiene[6] + BottiglieRiempite;
+                    QuantitàBottiglie[6] = QuantitàBottiglie[6] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di vodka vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[6])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieVodka();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[6]);
+                    botti[6][2] = botti[6][2] - BottiUsate;
+                    bottiPiene[6][2] = bottiPiene[6][2] + BottiUsate;
+                    bottigliePiene[6] = bottigliePiene[6] + BottiglieRiempite;
+                    QuantitàBottiglie[6] = QuantitàBottiglie[6] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
+
+        static void MenùBottiglieRum()
+        {
+            Console.WriteLine("\nQuali botti di rum vuoi utilizzare pr riempire le bottiglie?\nScrivi 1 per quelle piccole\nScrivi 2 per quelle medie\nScrivi 3 per quelle grandi\nScrivi * per tornare al MenùRiempimentoBottiglie");
+            Risposta = Console.ReadLine();
+            while (Risposta != "1" && Risposta != "2" && Risposta != "3" && Risposta != "*")
+            {
+                Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                Risposta = Console.ReadLine();
+            }
+            switch (Risposta)
+            {
+                case "1":
+                    Console.WriteLine("\nHai selezionato le botti piccole");
+                    Console.WriteLine("\nQuante botti piccole di rum vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 225000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[7])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieRum();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[7]);
+                    botti[7][0] = botti[7][0] - BottiUsate;
+                    bottiPiene[7][0] = bottiPiene[7][0] + BottiUsate;
+                    bottigliePiene[7] = bottigliePiene[7] + BottiglieRiempite;
+                    QuantitàBottiglie[7] = QuantitàBottiglie[7] - BottiglieRiempite;
+                    break;
+                case "2":
+                    Console.WriteLine("\nHai selezionato le botti medie");
+                    Console.WriteLine("\nQuante botti medie di rum vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 1500000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[7])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieRum();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[7]);
+                    botti[7][1] = botti[7][1] - BottiUsate;
+                    bottiPiene[7][1] = bottiPiene[7][1] + BottiUsate;
+                    bottigliePiene[7] = bottigliePiene[7] + BottiglieRiempite;
+                    QuantitàBottiglie[7] = QuantitàBottiglie[7] - BottiglieRiempite;
+                    break;
+                case "3":
+                    Console.WriteLine("\nHai selezionato le botti grandi");
+                    Console.WriteLine("\nQuante botti grandi di rum vuoi usare?\nRisposta: ");
+                    BottiUsate = Convert.ToInt32(Console.ReadLine());
+                    BottiglieRiempite = (BottiUsate * 4000000) / 750;
+                    while (BottiglieRiempite > QuantitàBottiglie[7])
+                    {
+                        Console.WriteLine("\nLe bottiglie da riempire sono più di quelle possedute dalla distilleria");
+                        Console.WriteLine("\nScrivi 1 per comprare altre bottiglie\nScrivi 2 per reinserire la quantità di botti da utilizzare");
+                        Risposta2 = Console.ReadLine();
+                        while (Risposta2 != "1" && Risposta2 != "2")
+                        {
+                            Console.Write("\nIl valore inserito non è valido; reinserire il valore\nRisposta: ");
+                            Risposta2 = Console.ReadLine();
+                        }
+                        if (Risposta2 == "1")
+                        {
+                            MenùCompravvendita();
+                        }
+                        if (Risposta2 == "2")
+                        {
+                            MenùBottiglieRum();
+                        }
+                    }
+                    Console.WriteLine("\nHai riempito " + BottiglieRiempite + nomiBottiglie[7]);
+                    botti[7][2] = botti[7][2] - BottiUsate;
+                    bottiPiene[7][2] = bottiPiene[7][2] + BottiUsate;
+                    bottigliePiene[7] = bottigliePiene[7] + BottiglieRiempite;
+                    QuantitàBottiglie[7] = QuantitàBottiglie[7] - BottiglieRiempite;
+                    break;
+                case "*": MenùRiempimentoBotti(); break;
+            }
+        }
     }
 }
